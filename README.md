@@ -1,66 +1,210 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# রেস্টুরেন্ট পয়েন্ট অফ সেল (POS) সিস্টেম
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+বাংলাদেশের রেস্টুরেন্টগুলোর জন্য তৈরি একটি সম্পূর্ণ পয়েন্ট অফ সেল (POS) ম্যানেজমেন্ট সিস্টেম। Laravel 10 দিয়ে তৈরি এই সিস্টেমটি বাংলা ভাষায় সম্পূর্ণ UI সহ রেস্টুরেন্ট পরিচালনার সকল কাজ সহজ করে তোলে।
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## প্রযুক্তি স্ট্যাক
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| প্রযুক্তি | বিবরণ |
+|-----------|--------|
+| **PHP** | 8.3+ |
+| **Laravel** | 10.x |
+| **Database** | SQLite |
+| **Frontend** | Bootstrap 5, Font Awesome 6 |
+| **Font** | Hind Siliguri (বাংলা) |
+| **Chart** | Chart.js |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## সিস্টেমের ফিচারসমূহ
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **ড্যাশবোর্ড** — আজকের বিক্রয়, অর্ডার স্ট্যাটাস, টেবিল গ্রিড, সাপ্তাহিক বিক্রয় চার্ট
+- **POS অর্ডার ইন্টারফেস** — ক্যাটাগরি ফিল্টার, কার্ট, পেমেন্ট মডাল, ডিসকাউন্ট
+- **কিচেন ডিসপ্লে সিস্টেম (KDS)** — রিয়েল-টাইম অর্ডার ট্র্যাকিং, ডার্ক থিম
+- **টেবিল ম্যানেজমেন্ট** — ফ্লোর প্ল্যান, স্ট্যাটাস আপডেট (খালি/ব্যস্ত/রিজার্ভ)
+- **মেনু ম্যানেজমেন্ট** — ক্যাটাগরি ও আইটেম CRUD, ছবি আপলোড, ফিচার্ড আইটেম
+- **বিলিং ও রিসিট** — ইনভয়েস প্রিন্ট, থার্মাল রিসিট, পেমেন্ট মেথড
+- **রিপোর্ট** — দৈনিক/সাপ্তাহিক বিক্রয়, টপ আইটেম, পেমেন্ট মেথড বিশ্লেষণ
+- **সেটিংস** — রেস্টুরেন্ট তথ্য, ট্যাক্স রেট, স্টাফ ম্যানেজমেন্ট
+- **রোল-ভিত্তিক অ্যাক্সেস** — Admin / Cashier / Kitchen
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ইনস্টলেশন গাইড
 
-## Laravel Sponsors
+### ধাপ ১ — রিপোজিটরি ক্লোন করুন
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone <repository-url> pos-restaurant
+cd pos-restaurant
+```
 
-### Premium Partners
+### ধাপ ২ — Composer ডিপেন্ডেন্সি ইনস্টল করুন
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+composer install
+```
 
-## Contributing
+### ধাপ ৩ — Environment কনফিগার করুন
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+`.env` ফাইলে নিচের সেটিংস নিশ্চিত করুন:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```env
+APP_NAME="POS Restaurant"
+APP_URL=http://localhost/pos-restaurant/public
 
-## Security Vulnerabilities
+DB_CONNECTION=sqlite
+DB_DATABASE=/absolute/path/to/database/database.sqlite
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ধাপ ৪ — SQLite ডেটাবেজ তৈরি করুন
 
-## License
+```bash
+touch database/database.sqlite
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> **Windows এ:** `New-Item database/database.sqlite -ItemType File`
+
+### ধাপ ৫ — মাইগ্রেশন ও সিডার রান করুন
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+### ধাপ ৬ — স্টোরেজ লিংক তৈরি করুন
+
+```bash
+php artisan storage:link
+```
+
+### ধাপ ৭ — সার্ভার চালু করুন
+
+```bash
+php artisan serve
+```
+
+অথবা WAMP/XAMPP এর মাধ্যমে: `http://localhost/pos-restaurant/public`
+
+---
+
+## লগইন তথ্য (Demo)
+
+| রোল | ইমেইল | পাসওয়ার্ড |
+|-----|-------|-----------|
+| **Admin** | admin@pos.com | password |
+| **Cashier** | cashier@pos.com | password |
+| **Kitchen** | kitchen@pos.com | password |
+
+---
+
+## ডেটাবেজ স্কিমা
+
+```
+users               — ব্যবহারকারী (role: admin/cashier/kitchen)
+categories          — মেনু ক্যাটাগরি (icon, color, sort_order)
+menu_items          — মেনু আইটেম (price, preparation_time, image)
+restaurant_tables   — টেবিল (capacity, location, status)
+orders              — অর্ডার (order_number, order_type, status, totals)
+order_items         — অর্ডার আইটেম (quantity, unit_price, total_price)
+payments            — পেমেন্ট (method: cash/card/bkash/nagad)
+settings            — সিস্টেম সেটিংস (key-value store)
+```
+
+---
+
+## রাউট সংক্ষেপ
+
+| মডিউল | URL | বিবরণ |
+|-------|-----|--------|
+| Login | `/login` | লগইন পেজ |
+| Dashboard | `/dashboard` | মূল ড্যাশবোর্ড |
+| POS | `/pos` | অর্ডার ইন্টারফেস |
+| Orders | `/orders` | অর্ডার তালিকা |
+| Kitchen | `/kitchen` | কিচেন ডিসপ্লে |
+| Tables | `/tables` | টেবিল ম্যানেজমেন্ট |
+| Menu | `/menu/categories` | মেনু ক্যাটাগরি |
+| Reports | `/reports` | বিক্রয় রিপোর্ট |
+| Settings | `/settings` | সিস্টেম সেটিংস |
+
+---
+
+## অর্ডার স্ট্যাটাস ফ্লো
+
+```
+pending → confirmed → preparing → ready → served → completed
+                                                  ↘ cancelled
+```
+
+---
+
+## পেমেন্ট মেথড
+
+- নগদ (Cash)
+- কার্ড (Card)
+- bKash
+- Nagad
+
+---
+
+## ডিফল্ট সেটিংস
+
+| সেটিং | মান |
+|-------|-----|
+| রেস্টুরেন্টের নাম | মেঘনা রেস্টুরেন্ট |
+| মুদ্রা | ৳ (Bangladeshi Taka) |
+| ট্যাক্স রেট | ৫% |
+| ফোন | 01800-000000 |
+| ঠিকানা | ঢাকা, বাংলাদেশ |
+
+---
+
+## ডকুমেন্টেশন
+
+| ফাইল | বিবরণ |
+|------|--------|
+| [DOCUMENTATION.md](DOCUMENTATION.md) | বিস্তারিত টেকনিক্যাল ডকুমেন্টেশন |
+| [public/docs.html](public/docs.html) | HTML ডকুমেন্টেশন (ব্রাউজারে দেখুন) |
+| [public/video-script.html](public/video-script.html) | ভিডিও স্ক্রিপ্ট ও স্ক্রিনকাস্ট গাইড |
+
+---
+
+## প্রজেক্ট স্ট্রাকচার
+
+```
+pos-restaurant/
+├── app/
+│   ├── Http/Controllers/     # সকল কন্ট্রোলার
+│   └── Models/               # Eloquent মডেল
+├── database/
+│   ├── migrations/           # ডেটাবেজ মাইগ্রেশন
+│   ├── seeders/              # ডেমো ডেটা সিডার
+│   └── database.sqlite       # SQLite ডেটাবেজ
+├── resources/views/
+│   ├── layouts/              # মেইন লেআউট
+│   ├── auth/                 # লগইন ভিউ
+│   ├── dashboard/            # ড্যাশবোর্ড
+│   ├── orders/               # POS ও অর্ডার
+│   ├── menu/                 # মেনু ম্যানেজমেন্ট
+│   ├── tables/               # টেবিল ম্যানেজমেন্ট
+│   ├── kitchen/              # কিচেন ডিসপ্লে
+│   ├── billing/              # বিলিং ও রিসিট
+│   ├── reports/              # রিপোর্ট
+│   └── settings/             # সেটিংস
+├── routes/
+│   └── web.php               # সকল রাউট
+└── public/
+    ├── docs.html             # HTML ডকুমেন্টেশন
+    └── video-script.html     # ভিডিও স্ক্রিপ্ট
+```
+
+---
+
+## লাইসেন্স
+
+এই প্রজেক্টটি [MIT লাইসেন্স](https://opensource.org/licenses/MIT) এর অধীনে ওপেন সোর্স।
