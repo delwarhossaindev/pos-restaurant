@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Restaurant - ডকুমেন্টেশন</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Hind Siliguri', sans-serif; }
+        body { background: #f8f9fa; }
+
+        /* Sidebar */
+        .doc-sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 260px; height: 100vh;
+            background: #1a1a2e; overflow-y: auto;
+            padding: 20px 0; z-index: 100;
+        }
+        .doc-sidebar .brand {
+            padding: 15px 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+        .doc-sidebar .brand h5 { color: #FF6B35; margin: 0; font-size: 1rem; }
+        .doc-sidebar .brand small { color: #888; font-size: 0.75rem; }
+        .doc-sidebar a {
+            display: block; padding: 8px 20px;
+            color: #adb5bd; text-decoration: none;
+            font-size: 0.85rem; transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .doc-sidebar a:hover { color: #fff; background: rgba(255,107,53,0.1); border-left-color: #FF6B35; }
+        .doc-sidebar .section-title {
+            padding: 15px 20px 5px; color: #555;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Content */
+        .doc-content { margin-left: 260px; padding: 40px; max-width: 1100px; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff; border-radius: 16px; padding: 40px;
+            margin-bottom: 40px; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '🍽️';
+            position: absolute; right: 40px; top: 50%;
+            transform: translateY(-50%); font-size: 8rem; opacity: 0.1;
+        }
+        .hero h1 { font-size: 2rem; font-weight: 700; color: #FF6B35; }
+        .hero p { color: #adb5bd; font-size: 1rem; }
+        .badge-tech {
+            display: inline-block; background: rgba(255,107,53,0.2);
+            color: #FF6B35; border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px;
+        }
+
+        /* Section */
+        .doc-section { margin-bottom: 50px; scroll-margin-top: 20px; }
+        .doc-section h2 {
+            font-size: 1.5rem; font-weight: 700; color: #1a1a2e;
+            padding-bottom: 10px; border-bottom: 3px solid #FF6B35;
+            margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
+        }
+        .doc-section h3 { font-size: 1.1rem; font-weight: 600; color: #333; margin: 25px 0 15px; }
+        .doc-section h4 { font-size: 0.95rem; font-weight: 600; color: #555; margin: 20px 0 10px; }
+
+        /* Cards */
+        .feature-card {
+            background: #fff; border-radius: 12px; padding: 20px;
+            border: 1px solid #eee; transition: all 0.2s; height: 100%;
+        }
+        .feature-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .feature-card .icon {
+            width: 45px; height: 45px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; margin-bottom: 12px;
+        }
+        .feature-card h5 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.83rem; color: #666; margin: 0; }
+
+        /* Code blocks */
+        pre {
+            background: #1a1a2e; color: #e6edf3; border-radius: 10px;
+            padding: 20px; font-size: 0.85rem; border: none;
+        }
+        code { color: #FF6B35; background: #fff3ee; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
+
+        /* Tables */
+        .table thead th { background: #1a1a2e; color: #fff; font-weight: 600; border: none; }
+        .table td { vertical-align: middle; }
+        .table-card { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+
+        /* Status badges */
+        .status-flow {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 20px;
+            background: #f8f9fa; border-radius: 12px;
+        }
+        .status-badge {
+            padding: 8px 16px; border-radius: 25px; font-size: 0.85rem;
+            font-weight: 600; text-align: center;
+        }
+        .arrow { color: #adb5bd; font-size: 1.2rem; }
+
+        /* Info boxes */
+        .info-box {
+            border-radius: 10px; padding: 15px 20px; margin: 15px 0;
+            border-left: 4px solid;
+        }
+        .info-box.tip { background: #f0fff4; border-color: #2ecc71; color: #1a6b3a; }
+        .info-box.warning { background: #fffbf0; border-color: #f39c12; color: #7d5a00; }
+        .info-box.info { background: #f0f8ff; border-color: #3498db; color: #1a4a6b; }
+
+        /* Access table */
+        .access-yes { color: #2ecc71; font-size: 1.1rem; }
+        .access-no { color: #e74c3c; font-size: 1.1rem; }
+
+        /* Credentials */
+        .cred-card {
+            border-radius: 12px; padding: 20px; border: 2px solid;
+            text-align: center; transition: all 0.2s;
+        }
+        .cred-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+        @media (max-width: 768px) {
+            .doc-sidebar { display: none; }
+            .doc-content { margin-left: 0; padding: 20px; }
+        }
+
+        /* Scrollbar */
+        .doc-sidebar::-webkit-scrollbar { width: 4px; }
+        .doc-sidebar::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="doc-sidebar">
+    <div class="brand">
+        <h5><i class="fas fa-utensils me-2"></i>POS Restaurant</h5>
+        <small>ডকুমেন্টেশন v1.0</small>
+    </div>
+    <div class="section-title">শুরু করুন</div>
+    <a href="#intro"><i class="fas fa-info-circle me-2"></i>পরিচিতি</a>
+    <a href="#tech"><i class="fas fa-code me-2"></i>প্রযুক্তি</a>
+    <a href="#install"><i class="fas fa-download me-2"></i>ইনস্টলেশন</a>
+    <a href="#login"><i class="fas fa-key me-2"></i>লগইন তথ্য</a>
+
+    <div class="section-title">ডেটাবেস</div>
+    <a href="#database"><i class="fas fa-database me-2"></i>ডেটাবেস কাঠামো</a>
+
+    <div class="section-title">ফিচার গাইড</div>
+    <a href="#dashboard"><i class="fas fa-tachometer-alt me-2"></i>ড্যাশবোর্ড</a>
+    <a href="#pos"><i class="fas fa-cash-register me-2"></i>POS অর্ডার</a>
+    <a href="#orders"><i class="fas fa-receipt me-2"></i>অর্ডার ম্যানেজমেন্ট</a>
+    <a href="#kitchen"><i class="fas fa-fire me-2"></i>কিচেন ডিসপ্লে</a>
+    <a href="#tables"><i class="fas fa-chair me-2"></i>টেবিল ম্যানেজমেন্ট</a>
+    <a href="#menu"><i class="fas fa-book-open me-2"></i>মেনু ম্যানেজমেন্ট</a>
+    <a href="#billing"><i class="fas fa-file-invoice-dollar me-2"></i>বিলিং ও রিসিট</a>
+    <a href="#reports"><i class="fas fa-chart-bar me-2"></i>রিপোর্ট</a>
+    <a href="#settings"><i class="fas fa-cog me-2"></i>সেটিং</a>
+
+    <div class="section-title">রেফারেন্স</div>
+    <a href="#files"><i class="fas fa-folder me-2"></i>ফাইল স্ট্রাকচার</a>
+    <a href="#routes"><i class="fas fa-route me-2"></i>রুট তালিকা</a>
+    <a href="#roles"><i class="fas fa-users me-2"></i>ভূমিকা ও অ্যাক্সেস</a>
+    <a href="#troubleshoot"><i class="fas fa-wrench me-2"></i>সমস্যা সমাধান</a>
+</div>
+
+<!-- Main Content -->
+<div class="doc-content">
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1><i class="fas fa-utensils me-3"></i>POS Restaurant Management System</h1>
+        <p class="lead mb-3">সম্পূর্ণ বাংলা ইন্টারফেসে রেস্টুরেন্ট পরিচালনার সফটওয়্যার</p>
+        <div>
+            <span class="badge-tech">Laravel 10</span>
+            <span class="badge-tech">PHP 8.3</span>
+            <span class="badge-tech">SQLite</span>
+            <span class="badge-tech">Bootstrap 5</span>
+            <span class="badge-tech">বাংলা UI</span>
+            <span class="badge-tech">Offline Ready</span>
+        </div>
+        <div class="mt-3">
+            <a href="/" class="btn btn-warning btn-sm me-2"><i class="fas fa-home me-1"></i>হোমে যান</a>
+            <a href="/login" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-in-alt me-1"></i>লগইন</a>
+        </div>
+    </div>
+
+    <!-- 1. Intro -->
+    <div class="doc-section" id="intro">
+        <h2><i class="fas fa-info-circle text-primary"></i> প্রজেক্ট পরিচিতি</h2>
+        <p>POS Restaurant Management System একটি সম্পূর্ণ রেস্টুরেন্ট পরিচালনা সফটওয়্যার যা দিয়ে অর্ডার নেওয়া, কিচেনে পাঠানো, বিল তৈরি এবং বিক্রির রিপোর্ট দেখা যায়।</p>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#fff3ee; color:#FF6B35"><i class="fas fa-cash-register"></i></div>
+                    <h5>POS অর্ডার সিস্টেম</h5>
+                    <p>ক্লিক করে দ্রুত অর্ডার নিন, কার্ট ম্যানেজ করুন, পেমেন্ট নিন</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#f0fff4; color:#2ecc71"><i class="fas fa-fire"></i></div>
+                    <h5>কিচেন ডিসপ্লে</h5>
+                    <p>রিয়েল-টাইম অর্ডার, টাইমার, অবস্থা আপডেট</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#f0f8ff; color:#3498db"><i class="fas fa-chart-bar"></i></div>
+                    <h5>বিক্রির রিপোর্ট</h5>
+                    <p>দৈনিক/সাপ্তাহিক/মাসিক বিক্রির গ্রাফ ও বিশ্লেষণ</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#fff0f6; color:#e91e63"><i class="fas fa-file-invoice"></i></div>
+                    <h5>বিলিং ও রিসিট</h5>
+                    <p>ইনভয়েস তৈরি, পেমেন্ট গ্রহণ, রিসিট প্রিন্ট</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#fffbf0; color:#f39c12"><i class="fas fa-chair"></i></div>
+                    <h5>টেবিল ম্যানেজমেন্ট</h5>
+                    <p>ফ্লোর প্ল্যান, টেবিলের অবস্থা, বসার আয়োজন</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon" style="background:#f5f0ff; color:#9b59b6"><i class="fas fa-book-open"></i></div>
+                    <h5>মেনু ম্যানেজমেন্ট</h5>
+                    <p>ক্যাটাগরি, আইটেম, দাম, ছবি, উপলব্ধতা ম্যানেজ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Tech -->
+    <div class="doc-section" id="tech">
+        <h2><i class="fas fa-code text-success"></i> প্রযুক্তি স্ট্যাক</h2>
+        <div class="table-card">
+            <table class="table table-hover mb-0">
+                <thead><tr><th>বিভাগ</th><th>প্রযুক্তি</th><th>সংস্করণ</th></tr></thead>
+                <tbody>
+                    <tr><td>Backend Framework</td><td><strong>Laravel</strong></td><td>10.x</td></tr>
+                    <tr><td>Programming Language</td><td><strong>PHP</strong></td><td>8.3+</td></tr>
+                    <tr><td>Database</td><td><strong>SQLite</strong></td><td>3.x</td></tr>
+                    <tr><td>Frontend CSS</td><td><strong>Bootstrap</strong></td><td>5.3</td></tr>
+                    <tr><td>Icons</td><td><strong>Font Awesome</strong></td><td>6.5</td></tr>
+                    <tr><td>Fonts</td><td><strong>Hind Siliguri</strong> (Google Fonts)</td><td>—</td></tr>
+                    <tr><td>Charts</td><td><strong>Chart.js</strong></td><td>4.x</td></tr>
+                    <tr><td>AJAX</td><td><strong>Vanilla JS Fetch API</strong></td><td>—</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 3. Install -->
+    <div class="doc-section" id="install">
+        <h2><i class="fas fa-download text-warning"></i> ইনস্টলেশন গাইড</h2>
+
+        <h3>প্রয়োজনীয়তা</h3>
+        <ul>
+            <li>PHP 8.1 বা তার উপরে</li>
+            <li>Composer</li>
+            <li>WAMP / XAMPP / Laragon (Windows)</li>
+        </ul>
+
+        <h3>ধাপ ১: .env কনফিগারেশন</h3>
+        <pre>APP_NAME="POS Restaurant"
+APP_URL=http://localhost/pos-restaurant/public
+
+DB_CONNECTION=sqlite
+DB_DATABASE=D:\wamp64\www\pos-restaurant\database\database.sqlite</pre>
+
+        <h3>ধাপ ২: Composer ইনস্টল (প্রয়োজনে)</h3>
+        <pre>composer install</pre>
+
+        <h3>ধাপ ৩: Database মাইগ্রেশন ও Seed</h3>
+        <pre>php artisan migrate:fresh --seed</pre>
+
+        <h3>ধাপ ৪: Storage Link তৈরি</h3>
+        <pre>php artisan storage:link</pre>
+
+        <h3>ধাপ ৫: ব্রাউজারে খুলুন</h3>
+        <pre>http://localhost/pos-restaurant/public</pre>
+
+        <div class="info-box tip">
+            <i class="fas fa-lightbulb me-2"></i>
+            <strong>টিপস:</strong> SQLite ব্যবহার করায় MySQL/MariaDB চালু না থাকলেও সফটওয়্যার কাজ করবে।
+        </div>
+    </div>
+
+    <!-- 4. Login -->
+    <div class="doc-section" id="login">
+        <h2><i class="fas fa-key text-danger"></i> লগইন তথ্য</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="cred-card border-danger">
+                    <div class="mb-2" style="font-size:2rem">👑</div>
+                    <h5 class="text-danger">এডমিন</h5>
+                    <div class="mt-2">
+                        <code>admin@pos.com</code><br>
+                        <code class="mt-1 d-inline-block">password</code>
+                    </div>
+                    <div class="text-muted small mt-2">সব কিছুতে অ্যাক্সেস</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cred-card border-info">
+                    <div class="mb-2" style="font-size:2rem">💰</div>
+                    <h5 class="text-info">ক্যাশিয়ার</h5>
+                    <div class="mt-2">
+                        <code>cashier@pos.com</code><br>
+                        <code class="mt-1 d-inline-block">password</code>
+                    </div>
+                    <div class="text-muted small mt-2">অর্ডার, বিল, রিপোর্ট</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cred-card border-warning">
+                    <div class="mb-2" style="font-size:2rem">🍳</div>
+                    <h5 class="text-warning">কিচেন স্টাফ</h5>
+                    <div class="mt-2">
+                        <code>kitchen@pos.com</code><br>
+                        <code class="mt-1 d-inline-block">password</code>
+                    </div>
+                    <div class="text-muted small mt-2">শুধু কিচেন ডিসপ্লে</div>
+                </div>
+            </div>
+        </div>
+        <div class="info-box warning mt-3">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>সতর্কতা:</strong> প্রথম লগইনের পরে সেটিং থেকে পাসওয়ার্ড পরিবর্তন করুন।
+        </div>
+    </div>
+
+    <!-- 5. Database -->
+    <div class="doc-section" id="database">
+        <h2><i class="fas fa-database text-info"></i> ডেটাবেস কাঠামো</h2>
+
+        <div class="info-box info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>ডেটাবেস ফাইল:</strong> <code>database/database.sqlite</code>
+        </div>
+
+        <h3>টেবিল সমূহ</h3>
+        <pre>pos-restaurant/database/database.sqlite
+├── users                 — স্টাফ/ব্যবহারকারী (৩ টি ডেমো)
+├── categories            — মেনু ক্যাটাগরি (৮ টি ডেমো)
+├── menu_items            — মেনু আইটেম (৩৩ টি ডেমো)
+├── restaurant_tables     — রেস্টুরেন্টের টেবিল (১২ টি ডেমো)
+├── orders                — অর্ডার
+├── order_items           — অর্ডারের আইটেম
+├── payments              — পেমেন্ট
+└── settings              — সিস্টেম সেটিং</pre>
+
+        <h3>সম্পর্ক (Relationships)</h3>
+        <pre>Category ──< MenuItem
+RestaurantTable ──< Order ──< OrderItem >── MenuItem
+User ──< Order
+Order ──── Payment
+User ──< Payment</pre>
+    </div>
+
+    <!-- 6. Dashboard -->
+    <div class="doc-section" id="dashboard">
+        <h2><i class="fas fa-tachometer-alt text-primary"></i> ড্যাশবোর্ড</h2>
+        <p>URL: <code>/</code></p>
+
+        <div class="table-card">
+            <table class="table mb-0">
+                <thead><tr><th>উইজেট</th><th>বিবরণ</th></tr></thead>
+                <tbody>
+                    <tr><td>আজকের বিক্রি</td><td>আজকের মোট পেমেন্টের যোগফল</td></tr>
+                    <tr><td>আজকের অর্ডার</td><td>আজকের মোট অর্ডার সংখ্যা</td></tr>
+                    <tr><td>সক্রিয় অর্ডার</td><td>এখন চলমান অর্ডার (pending থেকে served)</td></tr>
+                    <tr><td>খালি টেবিল</td><td>খালি / মোট টেবিল সংখ্যা</td></tr>
+                    <tr><td>টেবিল গ্রিড</td><td>সব টেবিলের রিয়েল-টাইম অবস্থা, ক্লিক করে POS-এ যান</td></tr>
+                    <tr><td>সাপ্তাহিক গ্রাফ</td><td>গত ৭ দিনের বিক্রির বার চার্ট</td></tr>
+                    <tr><td>সেরা আইটেম</td><td>সবচেয়ে বেশি বিক্রিত আইটেম টপ ৫</td></tr>
+                    <tr><td>সাম্প্রতিক অর্ডার</td><td>শেষ ১০টি অর্ডারের তালিকা</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 7. POS -->
+    <div class="doc-section" id="pos">
+        <h2><i class="fas fa-cash-register" style="color:#FF6B35"></i> POS অর্ডার ইন্টারফেস</h2>
+        <p>URL: <code>/pos</code> &nbsp;|&nbsp; URL: <code>/pos?table_id=1</code> (নির্দিষ্ট টেবিল)</p>
+
+        <h3>অর্ডার নেওয়ার ধাপ</h3>
+        <ol>
+            <li><strong>অর্ডারের ধরন বেছে নিন</strong> — ডাইন ইন / টেকওয়ে / ডেলিভারি</li>
+            <li><strong>টেবিল বেছে নিন</strong> (ডাইন ইনের জন্য)</li>
+            <li><strong>ক্যাটাগরি ট্যাব</strong> থেকে বিভাগ বেছে আইটেমে ক্লিক করুন</li>
+            <li><strong>কার্টে পরিমাণ</strong> কম-বেশি করুন (+/- বাটন)</li>
+            <li><strong>ছাড় দিতে</strong> — ছাড়ের ঘরে পরিমাণ লিখুন</li>
+            <li><strong>"অর্ডার দিন"</strong> বাটনে ক্লিক করুন</li>
+            <li><strong>পেমেন্ট পদ্ধতি</strong> বেছে পেমেন্ট নিশ্চিত করুন</li>
+            <li><strong>রিসিট</strong> দেখান ও প্রিন্ট করুন</li>
+        </ol>
+
+        <h3>পেমেন্ট পদ্ধতি</h3>
+        <div class="d-flex gap-2 flex-wrap">
+            <span class="badge bg-success px-3 py-2">💵 নগদ (Cash)</span>
+            <span class="badge bg-info px-3 py-2">💳 কার্ড (Card)</span>
+            <span class="badge bg-danger px-3 py-2">📱 বিকাশ</span>
+            <span class="badge bg-warning text-dark px-3 py-2">💰 নগদ অ্যাপ</span>
+        </div>
+    </div>
+
+    <!-- 8. Orders -->
+    <div class="doc-section" id="orders">
+        <h2><i class="fas fa-receipt text-success"></i> অর্ডার ম্যানেজমেন্ট</h2>
+        <p>URL: <code>/orders</code></p>
+
+        <h3>অর্ডারের অবস্থার ধাপ</h3>
+        <div class="status-flow">
+            <span class="status-badge" style="background:#fff3cd; color:#856404">অপেক্ষায়</span>
+            <span class="arrow">→</span>
+            <span class="status-badge" style="background:#cff4fc; color:#055160">নিশ্চিত</span>
+            <span class="arrow">→</span>
+            <span class="status-badge" style="background:#cfe2ff; color:#084298">তৈরি হচ্ছে</span>
+            <span class="arrow">→</span>
+            <span class="status-badge" style="background:#d1e7dd; color:#0f5132">প্রস্তুত</span>
+            <span class="arrow">→</span>
+            <span class="status-badge" style="background:#d1e7dd; color:#0f5132">পরিবেশিত</span>
+            <span class="arrow">→</span>
+            <span class="status-badge" style="background:#e2e3e5; color:#41464b">সম্পন্ন ✓</span>
+        </div>
+        <div class="mt-2 text-muted small">পেমেন্টের পরে স্বয়ংক্রিয়ভাবে "সম্পন্ন" হয়</div>
+    </div>
+
+    <!-- 9. Kitchen -->
+    <div class="doc-section" id="kitchen">
+        <h2><i class="fas fa-fire" style="color:#e74c3c"></i> কিচেন ডিসপ্লে সিস্টেম (KDS)</h2>
+        <p>URL: <code>/kitchen</code></p>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <div class="p-3 rounded text-white text-center" style="background:#e67e22">
+                    <i class="fas fa-exclamation fa-lg d-block mb-2"></i>
+                    <strong>হলুদ কার্ড</strong><br>
+                    <small>নতুন অর্ডার</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 rounded text-white text-center" style="background:#3498db">
+                    <i class="fas fa-check fa-lg d-block mb-2"></i>
+                    <strong>নীল কার্ড</strong><br>
+                    <small>নিশ্চিত, রান্না শুরু হয়নি</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 rounded text-white text-center" style="background:#2ecc71">
+                    <i class="fas fa-fire fa-lg d-block mb-2"></i>
+                    <strong>সবুজ কার্ড</strong><br>
+                    <small>রান্না চলছে</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 rounded text-center" style="background:#1a1a2e; color:#ffc107">
+                    <i class="fas fa-clock fa-lg d-block mb-2"></i>
+                    <strong>টাইমার</strong><br>
+                    <small>MM:SS (লাল = ৩০ মিনিট+)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box info mt-3">
+            <i class="fas fa-sync me-2"></i>
+            কিচেন পেজ প্রতি <strong>১ মিনিটে</strong> স্বয়ংক্রিয়ভাবে রিফ্রেশ হয়।
+        </div>
+    </div>
+
+    <!-- 10. Tables -->
+    <div class="doc-section" id="tables">
+        <h2><i class="fas fa-chair text-warning"></i> টেবিল ম্যানেজমেন্ট</h2>
+        <p>URL: <code>/tables</code></p>
+
+        <div class="table-card">
+            <table class="table mb-0">
+                <thead><tr><th>অবস্থা</th><th>রঙ</th><th>অর্থ</th></tr></thead>
+                <tbody>
+                    <tr><td>available (খালি)</td><td><span class="badge bg-success">সবুজ</span></td><td>অর্ডার নেওয়া যাবে</td></tr>
+                    <tr><td>occupied (ব্যস্ত)</td><td><span class="badge bg-danger">লাল</span></td><td>অর্ডার চলছে</td></tr>
+                    <tr><td>reserved (রিজার্ভ)</td><td><span class="badge bg-warning text-dark">হলুদ</span></td><td>বুকিং আছে</td></tr>
+                    <tr><td>cleaning (পরিষ্কার)</td><td><span class="badge bg-info">নীল</span></td><td>পরিষ্কার হচ্ছে</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 11. Menu -->
+    <div class="doc-section" id="menu">
+        <h2><i class="fas fa-book-open" style="color:#9b59b6"></i> মেনু ম্যানেজমেন্ট</h2>
+
+        <h3>ক্যাটাগরি — <code>/menu/categories</code></h3>
+        <h4>জনপ্রিয় আইকন কোড</h4>
+        <div class="d-flex flex-wrap gap-2">
+            <code>fas fa-hamburger</code>
+            <code>fas fa-pizza-slice</code>
+            <code>fas fa-drumstick-bite</code>
+            <code>fas fa-bread-slice</code>
+            <code>fas fa-coffee</code>
+            <code>fas fa-ice-cream</code>
+            <code>fas fa-fish</code>
+            <code>fas fa-leaf</code>
+            <code>fas fa-hotdog</code>
+            <code>fas fa-cocktail</code>
+        </div>
+        <p class="mt-2"><a href="https://fontawesome.com/icons" target="_blank">আরও আইকন খুঁজুন →</a></p>
+
+        <h3>মেনু আইটেম — <code>/menu/items</code></h3>
+        <p>প্রতিটি আইটেমে থাকে: নাম, দাম, ক্যাটাগরি, ছবি, প্রস্তুতির সময়, উপলব্ধতা, বিশেষ আইটেম চিহ্ন।</p>
+    </div>
+
+    <!-- 12. Billing -->
+    <div class="doc-section" id="billing">
+        <h2><i class="fas fa-file-invoice-dollar" style="color:#2ecc71"></i> বিলিং ও রিসিট</h2>
+        <p>URL: <code>/billing/{order_id}</code></p>
+
+        <h3>বিল প্রক্রিয়া</h3>
+        <ol>
+            <li>অর্ডার তালিকা থেকে অর্ডার খুলুন</li>
+            <li>"বিল করুন" বাটনে ক্লিক করুন</li>
+            <li>পেমেন্ট পদ্ধতি বেছে নিন</li>
+            <li>টাকার পরিমাণ লিখুন (নগদের জন্য ফেরত স্বয়ংক্রিয় দেখাবে)</li>
+            <li>"পেমেন্ট নিশ্চিত করুন" ক্লিক করুন</li>
+            <li>রিসিট দেখাবে — প্রিন্ট করুন</li>
+        </ol>
+
+        <h3>রিসিটে থাকে</h3>
+        <ul>
+            <li>রেস্টুরেন্টের নাম ও ঠিকানা</li>
+            <li>অর্ডার নম্বর, তারিখ, সময়, ক্যাশিয়ারের নাম</li>
+            <li>সব আইটেমের তালিকা ও দাম</li>
+            <li>সাবটোটাল, ভ্যাট, ছাড়, মোট</li>
+            <li>পেমেন্টের তথ্য ও ফেরতের পরিমাণ</li>
+            <li>ধন্যবাদ বার্তা</li>
+        </ul>
+    </div>
+
+    <!-- 13. Reports -->
+    <div class="doc-section" id="reports">
+        <h2><i class="fas fa-chart-bar" style="color:#3498db"></i> রিপোর্ট</h2>
+        <p>URL: <code>/reports</code></p>
+
+        <div class="table-card">
+            <table class="table mb-0">
+                <thead><tr><th>রিপোর্ট</th><th>বিবরণ</th></tr></thead>
+                <tbody>
+                    <tr><td>মোট বিক্রি</td><td>নির্বাচিত সময়ের মোট পেমেন্ট</td></tr>
+                    <tr><td>মোট অর্ডার</td><td>নির্বাচিত সময়ের অর্ডার সংখ্যা</td></tr>
+                    <tr><td>গড় অর্ডার মূল্য</td><td>মোট বিক্রি ÷ মোট অর্ডার</td></tr>
+                    <tr><td>দৈনিক গ্রাফ</td><td>লাইন চার্টে প্রতিদিনের বিক্রি</td></tr>
+                    <tr><td>পেমেন্ট পদ্ধতি</td><td>ডোনাট চার্টে পেমেন্ট ভাগ</td></tr>
+                    <tr><td>সেরা আইটেম</td><td>সবচেয়ে বেশি বিক্রিত ১০টি আইটেম</td></tr>
+                    <tr><td>অর্ডারের ধরন</td><td>ডাইন ইন / টেকওয়ে / ডেলিভারির ভাগ</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-box tip mt-3">
+            <i class="fas fa-lightbulb me-2"></i>
+            দ্রুত ফিল্টার বাটন: <strong>আজ</strong>, <strong>এই সপ্তাহ</strong>, <strong>এই মাস</strong>
+        </div>
+    </div>
+
+    <!-- 14. Settings -->
+    <div class="doc-section" id="settings">
+        <h2><i class="fas fa-cog text-secondary"></i> সেটিং</h2>
+        <p>URL: <code>/settings</code> &nbsp;(শুধু Admin)</p>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <h3>রেস্টুরেন্ট সেটিং</h3>
+                <ul>
+                    <li>রেস্টুরেন্টের নাম</li>
+                    <li>ফোন, ইমেইল, ঠিকানা</li>
+                    <li>ভ্যাটের হার (%)</li>
+                    <li>মুদ্রা প্রতীক (৳)</li>
+                    <li>রিসিটের হেডার ও ফুটার</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>স্টাফ ম্যানেজমেন্ট</h3>
+                <ul>
+                    <li>নতুন স্টাফ যোগ</li>
+                    <li>স্টাফের ভূমিকা পরিবর্তন</li>
+                    <li>পাসওয়ার্ড রিসেট</li>
+                    <li>স্টাফ সক্রিয়/নিষ্ক্রিয়</li>
+                    <li>স্টাফ মুছুন</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 15. Files -->
+    <div class="doc-section" id="files">
+        <h2><i class="fas fa-folder text-warning"></i> ফাইল স্ট্রাকচার</h2>
+        <pre>pos-restaurant/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── AuthController.php
+│   │   ├── DashboardController.php
+│   │   ├── CategoryController.php
+│   │   ├── MenuItemController.php
+│   │   ├── TableController.php
+│   │   ├── OrderController.php
+│   │   ├── PaymentController.php
+│   │   ├── KitchenController.php
+│   │   ├── ReportController.php
+│   │   └── SettingController.php
+│   └── Models/
+│       ├── User.php
+│       ├── Category.php
+│       ├── MenuItem.php
+│       ├── RestaurantTable.php
+│       ├── Order.php
+│       ├── OrderItem.php
+│       ├── Payment.php
+│       └── Setting.php
+├── database/
+│   ├── database.sqlite       ← SQLite ডেটাবেস ফাইল
+│   ├── migrations/
+│   └── seeders/DatabaseSeeder.php
+├── resources/views/
+│   ├── layouts/app.blade.php
+│   ├── auth/login.blade.php
+│   ├── dashboard/index.blade.php
+│   ├── orders/{pos,index,show}.blade.php
+│   ├── menu/{categories,items}.blade.php
+│   ├── tables/index.blade.php
+│   ├── kitchen/index.blade.php
+│   ├── billing/{show,receipt,print}.blade.php
+│   ├── reports/index.blade.php
+│   └── settings/index.blade.php
+├── routes/web.php
+├── .env
+└── DOCUMENTATION.md</pre>
+    </div>
+
+    <!-- 16. Routes -->
+    <div class="doc-section" id="routes">
+        <h2><i class="fas fa-route text-info"></i> রুট তালিকা</h2>
+        <div class="table-card">
+            <table class="table table-sm mb-0">
+                <thead><tr><th>Method</th><th>URL</th><th>বিবরণ</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/login</td><td>লগইন পেজ</td></tr>
+                    <tr><td><span class="badge bg-primary">POST</span></td><td>/login</td><td>লগইন প্রক্রিয়া</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/</td><td>ড্যাশবোর্ড</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/pos</td><td>POS স্ক্রিন</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/orders</td><td>অর্ডার তালিকা</td></tr>
+                    <tr><td><span class="badge bg-primary">POST</span></td><td>/orders</td><td>নতুন অর্ডার (AJAX)</td></tr>
+                    <tr><td><span class="badge bg-primary">POST</span></td><td>/orders/{id}/status</td><td>অবস্থা পরিবর্তন (AJAX)</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/billing/{id}</td><td>বিল পেমেন্ট</td></tr>
+                    <tr><td><span class="badge bg-primary">POST</span></td><td>/billing/{id}/pay</td><td>পেমেন্ট (AJAX)</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/payment/{id}/receipt</td><td>রিসিট</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/kitchen</td><td>কিচেন ডিসপ্লে</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/tables</td><td>টেবিল তালিকা</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/menu/categories</td><td>ক্যাটাগরি</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/menu/items</td><td>মেনু আইটেম</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/reports</td><td>রিপোর্ট</td></tr>
+                    <tr><td><span class="badge bg-success">GET</span></td><td>/settings</td><td>সেটিং (Admin)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 17. Roles -->
+    <div class="doc-section" id="roles">
+        <h2><i class="fas fa-users text-success"></i> ভূমিকা ও অ্যাক্সেস</h2>
+        <div class="table-card">
+            <table class="table mb-0 text-center">
+                <thead>
+                    <tr>
+                        <th class="text-start">ফিচার</th>
+                        <th>Admin</th>
+                        <th>Manager</th>
+                        <th>Cashier</th>
+                        <th>Waiter</th>
+                        <th>Kitchen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="text-start">ড্যাশবোর্ড</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">POS অর্ডার</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">বিলিং</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-no">❌</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">কিচেন ডিসপ্লে</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td></tr>
+                    <tr><td class="text-start">মেনু ম্যানেজমেন্ট</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-no">❌</td><td class="access-no">❌</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">রিপোর্ট</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-yes">✅</td><td class="access-no">❌</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">সেটিং</td><td class="access-yes">✅</td><td class="access-no">❌</td><td class="access-no">❌</td><td class="access-no">❌</td><td class="access-no">❌</td></tr>
+                    <tr><td class="text-start">স্টাফ যোগ/মুছুন</td><td class="access-yes">✅</td><td class="access-no">❌</td><td class="access-no">❌</td><td class="access-no">❌</td><td class="access-no">❌</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 18. Troubleshoot -->
+    <div class="doc-section" id="troubleshoot">
+        <h2><i class="fas fa-wrench text-danger"></i> সমস্যা সমাধান</h2>
+
+        <div class="accordion" id="troubleshootAccordion">
+            <div class="accordion-item mb-2 border rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#t1">
+                        লগইন হচ্ছে না
+                    </button>
+                </h2>
+                <div id="t1" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <pre>php artisan cache:clear
+php artisan config:clear
+php artisan session:flush</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item mb-2 border rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#t2">
+                        ৫০০ Server Error দেখাচ্ছে
+                    </button>
+                </h2>
+                <div id="t2" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <p>.env ফাইলে <code>APP_DEBUG=true</code> করুন, তারপর error দেখুন।</p>
+                        <pre>php artisan config:clear
+php artisan cache:clear</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item mb-2 border rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#t3">
+                        ছবি আপলোড হচ্ছে না
+                    </button>
+                </h2>
+                <div id="t3" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <pre>php artisan storage:link</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item mb-2 border rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#t4">
+                        ডেটাবেস রিসেট করতে চান
+                    </button>
+                </h2>
+                <div id="t4" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <div class="info-box warning">সতর্কতা: এই কমান্ড সব ডেটা মুছে দেবে!</div>
+                        <pre>php artisan migrate:fresh --seed</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item mb-2 border rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#t5">
+                        রিপোর্টে ডেটা নেই
+                    </button>
+                </h2>
+                <div id="t5" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <p>নিশ্চিত করুন:</p>
+                        <ul>
+                            <li>অর্ডারের <code>status = completed</code> আছে</li>
+                            <li><code>payments</code> টেবিলে <code>status = completed</code> আছে</li>
+                            <li>তারিখের ফিল্টার সঠিক দেওয়া আছে</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-muted py-4 border-top mt-4">
+        <p>POS Restaurant Management System &nbsp;|&nbsp; Laravel 10 &nbsp;|&nbsp; SQLite &nbsp;|&nbsp; বাংলা UI</p>
+        <p class="small">সর্বশেষ আপডেট: মার্চ ২০২৬</p>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Highlight active section in sidebar
+    const sections = document.querySelectorAll('.doc-section');
+    const links = document.querySelectorAll('.doc-sidebar a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            if (window.scrollY >= section.offsetTop - 60) {
+                current = section.id;
+            }
+        });
+        links.forEach(link => {
+            link.style.color = '';
+            link.style.borderLeftColor = '';
+            link.style.background = '';
+            if (link.getAttribute('href') === '#' + current) {
+                link.style.color = '#FF6B35';
+                link.style.borderLeftColor = '#FF6B35';
+                link.style.background = 'rgba(255,107,53,0.1)';
+            }
+        });
+    });
+</script>
+</body>
+</html>

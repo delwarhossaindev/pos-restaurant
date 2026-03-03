@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Restaurant - ভিডিও স্ক্রিপ্ট</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Hind Siliguri', sans-serif; }
+        body { background: #f0f2f5; }
+
+        /* Print styles */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #fff; }
+            .scene-card { break-inside: avoid; }
+            .page-break { page-break-before: always; }
+        }
+
+        /* Header */
+        .doc-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff; padding: 40px;
+            border-bottom: 4px solid #FF6B35;
+        }
+        .doc-header h1 { font-size: 2rem; color: #FF6B35; margin: 0; }
+        .doc-header .meta { color: #adb5bd; font-size: 0.9rem; margin-top: 10px; }
+
+        /* TOC */
+        .toc-card {
+            background: #fff; border-radius: 12px;
+            padding: 25px; margin: 25px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .toc-item {
+            display: flex; align-items: center; padding: 8px 12px;
+            border-radius: 8px; margin: 4px 0; text-decoration: none;
+            color: #333; transition: all 0.2s;
+        }
+        .toc-item:hover { background: #fff3ee; color: #FF6B35; }
+        .toc-item .scene-num {
+            background: #FF6B35; color: #fff;
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 700; margin-right: 12px; flex-shrink: 0;
+        }
+        .toc-item .duration {
+            margin-left: auto; background: #f0f2f5;
+            padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; color: #666;
+        }
+
+        /* Scene Card */
+        .scene-card {
+            background: #fff; border-radius: 16px;
+            margin: 25px 0; overflow: hidden;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+        }
+        .scene-header {
+            display: flex; align-items: center; padding: 16px 25px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .scene-number {
+            background: #FF6B35; color: #fff;
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; margin-right: 15px; flex-shrink: 0;
+        }
+        .scene-title { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin: 0; }
+        .scene-meta { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+        .duration-badge {
+            background: #fff3ee; color: #FF6B35; border: 1px solid #ffd5c2;
+            padding: 4px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+        }
+        .scene-body { padding: 25px; }
+
+        /* Screen & Narration split */
+        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        @media (max-width: 768px) { .split-view { grid-template-columns: 1fr; } }
+
+        .screen-box {
+            background: #1a1a2e; border-radius: 12px; padding: 20px;
+            border: 2px solid #30363d;
+        }
+        .screen-box .label {
+            color: #FF6B35; font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 600; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .screen-box .label::after {
+            content: ''; flex: 1; height: 1px; background: rgba(255,107,53,0.3);
+        }
+        .screen-step {
+            display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start;
+        }
+        .screen-step .step-num {
+            background: rgba(255,107,53,0.2); color: #FF6B35;
+            width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+        }
+        .screen-step p { color: #e6edf3; font-size: 0.85rem; margin: 0; line-height: 1.5; }
+        .screen-step .highlight { color: #ffc107; }
+
+        .narration-box {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            border-radius: 12px; padding: 20px;
+            border: 2px solid #e9ecef;
+        }
+        .narration-box .label {
+            color: #6c757d; font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 600; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .narration-box .label::after {
+            content: ''; flex: 1; height: 1px; background: #dee2e6;
+        }
+        .narration-text {
+            font-size: 0.92rem; line-height: 1.8; color: #333;
+            font-style: italic; border-left: 3px solid #FF6B35; padding-left: 15px;
+        }
+
+        /* Notes */
+        .scene-notes {
+            background: #fffbf0; border-radius: 10px;
+            padding: 15px 18px; border-left: 4px solid #f39c12;
+            font-size: 0.85rem; color: #6d4c00; margin-top: 15px;
+        }
+        .scene-notes i { color: #f39c12; margin-right: 8px; }
+
+        /* Transition */
+        .transition-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #e8f4f8; color: #0056b3; padding: 5px 14px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 500;
+            margin-top: 12px;
+        }
+
+        /* Summary Table */
+        .summary-table th { background: #1a1a2e; color: #fff; }
+        .total-row { background: #fff3ee; font-weight: 700; }
+
+        /* Print button */
+        .print-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #FF6B35; color: #fff; border: none;
+            border-radius: 50px; padding: 14px 24px;
+            font-size: 0.9rem; cursor: pointer; box-shadow: 0 5px 20px rgba(255,107,53,0.4);
+            transition: all 0.2s; z-index: 100;
+        }
+        .print-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,107,53,0.5); }
+
+        /* Checklist */
+        .checklist { list-style: none; padding: 0; }
+        .checklist li {
+            padding: 6px 0; border-bottom: 1px solid #f0f0f0;
+            display: flex; align-items: center; gap: 10px; font-size: 0.88rem;
+        }
+        .checklist li:last-child { border: none; }
+        .checklist li input[type=checkbox] { width: 16px; height: 16px; accent-color: #FF6B35; }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="doc-header no-print">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h1><i class="fas fa-video me-3"></i>ভিডিও ডকুমেন্টেশন স্ক্রিপ্ট</h1>
+                <div class="meta">
+                    <span class="me-4"><i class="fas fa-film me-2"></i>POS Restaurant Management System</span>
+                    <span class="me-4"><i class="fas fa-clock me-2"></i>মোট সময়: ~১৫ মিনিট</span>
+                    <span><i class="fas fa-language me-2"></i>ভাষা: বাংলা</span>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-outline-light me-2" onclick="window.print()">
+                    <i class="fas fa-print me-2"></i>প্রিন্ট
+                </button>
+                <a href="/" class="btn" style="background:#FF6B35; color:#fff">
+                    <i class="fas fa-home me-2"></i>সফটওয়্যার
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-4 py-4" style="max-width:1200px; margin:0 auto;">
+
+<!-- Recording Checklist -->
+<div class="toc-card">
+    <h5 class="mb-3"><i class="fas fa-clipboard-check text-primary me-2"></i>রেকর্ডিং শুরুর আগে চেকলিস্ট</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="checklist">
+                <li><input type="checkbox"> ব্রাউজার ফুলস্ক্রিন করুন (F11)</li>
+                <li><input type="checkbox"> <code>admin@pos.com</code> দিয়ে লগইন করুন</li>
+                <li><input type="checkbox"> ডেমো ডেটা আছে কিনা দেখুন</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="checklist">
+                <li><input type="checkbox"> স্ক্রিন রেকর্ডার চালু করুন (OBS/Bandicam)</li>
+                <li><input type="checkbox"> মাইক্রোফোন টেস্ট করুন</li>
+                <li><input type="checkbox"> নোটিফিকেশন বন্ধ করুন</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="checklist">
+                <li><input type="checkbox"> URL: <code>localhost/pos-restaurant/public</code></li>
+                <li><input type="checkbox"> ফোন সাইলেন্ট করুন</li>
+                <li><input type="checkbox"> এই স্ক্রিপ্ট পাশে রাখুন</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc-card">
+    <h5 class="mb-3"><i class="fas fa-list text-warning me-2"></i>ভিডিওর বিষয়সূচি</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="#scene1" class="toc-item">
+                <span class="scene-num">১</span>
+                ভূমিকা ও ইন্ট্রো
+                <span class="duration">০:০০ – ০:৪৫</span>
+            </a>
+            <a href="#scene2" class="toc-item">
+                <span class="scene-num">২</span>
+                লগইন পেজ
+                <span class="duration">০:৪৫ – ১:৩০</span>
+            </a>
+            <a href="#scene3" class="toc-item">
+                <span class="scene-num">৩</span>
+                ড্যাশবোর্ড পরিচিতি
+                <span class="duration">১:৩০ – ৩:০০</span>
+            </a>
+            <a href="#scene4" class="toc-item">
+                <span class="scene-num">৪</span>
+                মেনু ম্যানেজমেন্ট
+                <span class="duration">৩:০০ – ৪:৩০</span>
+            </a>
+            <a href="#scene5" class="toc-item">
+                <span class="scene-num">৫</span>
+                টেবিল ম্যানেজমেন্ট
+                <span class="duration">৪:৩০ – ৫:৩০</span>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="#scene6" class="toc-item">
+                <span class="scene-num">৬</span>
+                POS অর্ডার নেওয়া
+                <span class="duration">৫:৩০ – ৮:০০</span>
+            </a>
+            <a href="#scene7" class="toc-item">
+                <span class="scene-num">৭</span>
+                কিচেন ডিসপ্লে
+                <span class="duration">৮:০০ – ৯:৩০</span>
+            </a>
+            <a href="#scene8" class="toc-item">
+                <span class="scene-num">৮</span>
+                বিলিং ও পেমেন্ট
+                <span class="duration">৯:৩০ – ১১:৩০</span>
+            </a>
+            <a href="#scene9" class="toc-item">
+                <span class="scene-num">৯</span>
+                বিক্রির রিপোর্ট
+                <span class="duration">১১:৩০ – ১৩:০০</span>
+            </a>
+            <a href="#scene10" class="toc-item">
+                <span class="scene-num">১০</span>
+                সেটিং ও আউট্রো
+                <span class="duration">১৩:০০ – ১৫:০০</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== SCENE 1 ===== -->
+<div class="scene-card" id="scene1">
+    <div class="scene-header">
+        <div class="scene-number">১</div>
+        <div>
+            <h5 class="scene-title">ভূমিকা ও ইন্ট্রো</h5>
+            <small class="text-muted">টাইটেল স্ক্রিন / ইন্ট্রো অ্যানিমেশন</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>৪৫ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>সফটওয়্যারের হোমপেজ বা লগইন স্ক্রিন দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p><span class="highlight">টাইটেল কার্ড:</span> "POS Restaurant Management System"</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>সাইডবারের সব মেনু আইটেম একবার স্ক্রোল করে দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p><span class="highlight">সাবটাইটেল:</span> "আজকের ভিডিওতে আমরা দেখব..."</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা (নরেশন)</div>
+                <div class="narration-text">
+                    "আসসালামু আলাইকুম বা নমস্কার! আজকের এই ভিডিওতে আমি আপনাদের দেখাবো একটি সম্পূর্ণ রেস্টুরেন্ট POS সফটওয়্যার কীভাবে ব্যবহার করতে হয়।
+
+                    এই সফটওয়্যার দিয়ে আপনি খুব সহজেই অর্ডার নিতে পারবেন, কিচেনে অর্ডার পাঠাতে পারবেন, বিল করতে পারবেন এবং বিক্রির রিপোর্ট দেখতে পারবেন।
+
+                    পুরো ভিডিওটি দেখুন এবং যেকোনো প্রশ্ন থাকলে কমেন্টে জানান। তো শুরু করা যাক!"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>টিপস:</strong> ব্যাকগ্রাউন্ড মিউজিক হালকা রাখুন। ইন্ট্রোতে সফটওয়্যারের লোগো/নাম বড় করে দেখান।
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: ফেড ইন → লগইন পেজ</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 2 ===== -->
+<div class="scene-card" id="scene2">
+    <div class="scene-header">
+        <div class="scene-number">২</div>
+        <div>
+            <h5 class="scene-title">লগইন পেজ</h5>
+            <small class="text-muted">URL: /login</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>৪৫ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>লগইন পেজ পুরোটা দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>ইমেইল ফিল্ডে <span class="highlight">admin@pos.com</span> টাইপ করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>পাসওয়ার্ড ফিল্ডে <span class="highlight">password</span> টাইপ করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>"লগইন করুন" বাটনে ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>ড্যাশবোর্ডে redirect হবে</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "প্রথমেই আমরা লগইন করব। এখানে ইমেইল হিসেবে দিচ্ছি admin@pos.com এবং পাসওয়ার্ড হলো 'password'।
+
+                    এই সফটওয়্যারে তিন ধরনের ব্যবহারকারী আছে — এডমিন, ক্যাশিয়ার এবং কিচেন স্টাফ। এডমিন সবকিছু করতে পারেন।
+
+                    লগইন করার পরে আমরা সরাসরি ড্যাশবোর্ডে চলে আসি।"
+                </div>
+            </div>
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: জুম আউট → ড্যাশবোর্ড</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 3 ===== -->
+<div class="scene-card" id="scene3">
+    <div class="scene-header">
+        <div class="scene-number">৩</div>
+        <div>
+            <h5 class="scene-title">ড্যাশবোর্ড পরিচিতি</h5>
+            <small class="text-muted">URL: / (হোম)</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>১ মিনিট ৩০ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>পুরো ড্যাশবোর্ড দেখান — উপরের <span class="highlight">৪টি স্ট্যাটাস কার্ড</span> হাইলাইট করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p><span class="highlight">টেবিল গ্রিড</span> — সবুজ=খালি, লাল=ব্যস্ত দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p><span class="highlight">সাপ্তাহিক বিক্রির গ্রাফ</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p><span class="highlight">সাম্প্রতিক অর্ডার</span> তালিকা দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>উপরে ডানে <span class="highlight">রিয়েল-টাইম ঘড়ি</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p>বাম পাশের <span class="highlight">সাইডবার মেনু</span> হাইলাইট করুন</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "এটি হলো আমাদের মূল ড্যাশবোর্ড। একনজরে এখানে দেখা যাচ্ছে — আজকের মোট বিক্রি, অর্ডার সংখ্যা, সক্রিয় অর্ডার এবং খালি টেবিলের সংখ্যা।
+
+                    এই টেবিল গ্রিডে দেখুন — সবুজ মানে টেবিল খালি, লাল মানে টেবিলে অর্ডার চলছে। যেকোনো টেবিলে ক্লিক করলে সেই টেবিলের জন্য সরাসরি অর্ডার নেওয়া যাবে।
+
+                    নিচে রয়েছে গত ৭ দিনের বিক্রির গ্রাফ এবং সাম্প্রতিক অর্ডারের তালিকা।
+
+                    বাম পাশের মেনু থেকে সফটওয়্যারের সব ফিচারে যাওয়া যাবে।"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>টিপস:</strong> স্ট্যাটাস কার্ডে মাউস হোভার করুন, এনিমেশন দেখা যাবে। টেবিল গ্রিডের প্রতিটি টেবিলে ধীরে ধীরে মাউস নিয়ে যান।
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে "মেনু" ক্লিক</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 4 ===== -->
+<div class="scene-card" id="scene4">
+    <div class="scene-header">
+        <div class="scene-number">৪</div>
+        <div>
+            <h5 class="scene-title">মেনু ম্যানেজমেন্ট</h5>
+            <small class="text-muted">URL: /menu/categories & /menu/items</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>১ মিনিট ৩০ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p><span class="highlight">ক্যাটাগরি পেজ</span> — সব ক্যাটাগরি তালিকা দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>নতুন ক্যাটাগরি ফর্মে <span class="highlight">"সি ফুড"</span> লিখে যোগ করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>"সব আইটেম" বাটনে ক্লিক করে <span class="highlight">মেনু আইটেম পেজ</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>"নতুন আইটেম" বাটন ক্লিক করুন, মডাল খুলবে</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>ফর্মে <span class="highlight">নাম, দাম, ক্যাটাগরি</span> ভরে যোগ করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p>pause ও play বাটন দিয়ে <span class="highlight">উপলব্ধতা</span> পরিবর্তন দেখান</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "এখন আসি মেনু ম্যানেজমেন্টে। এখানে প্রথমে দেখুন ক্যাটাগরি — বার্গার, পিৎজা, চিকেন সহ ৮টি ক্যাটাগরি আগেই তৈরি আছে।
+
+                    আপনি চাইলে নতুন ক্যাটাগরি যোগ করতে পারবেন। যেমন এখানে আমি 'সি ফুড' ক্যাটাগরি যোগ করলাম।
+
+                    এখন মেনু আইটেমে যাই। এখানে ফিল্টার করে নির্দিষ্ট ক্যাটাগরির আইটেম দেখা যায়।
+
+                    নতুন আইটেম যোগ করতে এই বাটনে ক্লিক করুন। নাম, দাম, ক্যাটাগরি দিলেই হবে। ছবিও দেওয়া যাবে।
+
+                    কোনো আইটেম সাময়িকভাবে বন্ধ রাখতে চাইলে এই pause বাটন চাপুন।"
+                </div>
+            </div>
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে "টেবিল" ক্লিক</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 5 ===== -->
+<div class="scene-card" id="scene5">
+    <div class="scene-header">
+        <div class="scene-number">৫</div>
+        <div>
+            <h5 class="scene-title">টেবিল ম্যানেজমেন্ট</h5>
+            <small class="text-muted">URL: /tables</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>১ মিনিট</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>ফ্লোর প্ল্যান — সব টেবিলের কার্ড দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>একটি টেবিলের <span class="highlight">গিয়ার আইকন</span> ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>অবস্থা পরিবর্তন মডাল দেখান (খালি/ব্যস্ত/রিজার্ভ/পরিষ্কার)</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>ডানে নতুন টেবিল যোগ করার ফর্ম দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>টেবিল নম্বর, আসন, অবস্থান লিখে যোগ করুন</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "টেবিল ম্যানেজমেন্ট পেজে আপনি দেখতে পারবেন রেস্টুরেন্টের সব টেবিলের অবস্থা।
+
+                    সবুজ মানে খালি, লাল মানে ব্যস্ত, হলুদ মানে রিজার্ভ করা।
+
+                    কোনো টেবিলের অবস্থা পরিবর্তন করতে গিয়ার আইকনে ক্লিক করুন।
+
+                    নতুন টেবিল যোগ করতে ডানের ফর্মে টেবিল নম্বর, আসন সংখ্যা এবং অবস্থান দিয়ে যোগ করুন। আমাদের এখানে Main Hall, VIP, Outdoor এবং Rooftop — চারটি অবস্থান আছে।"
+                </div>
+            </div>
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে "POS অর্ডার" ক্লিক</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 6 ===== -->
+<div class="scene-card" id="scene6">
+    <div class="scene-header">
+        <div class="scene-number">৬</div>
+        <div>
+            <h5 class="scene-title">POS অর্ডার নেওয়া</h5>
+            <small class="text-muted">URL: /pos — সবচেয়ে গুরুত্বপূর্ণ অংশ</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>২ মিনিট ৩০ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>POS স্ক্রিনের দুই পাশ দেখান — বাম=মেনু, ডান=কার্ট</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>অর্ডারের ধরন <span class="highlight">"ডাইন ইন"</span> সিলেক্ট করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>টেবিল ড্রপডাউন থেকে <span class="highlight">টেবিল ২</span> বেছে নিন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>"বার্গার" ক্যাটাগরি ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p><span class="highlight">"চিকেন বার্গার"</span> আইটেমে ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p>আরও একটি আইটেম যোগ করুন (<span class="highlight">ফ্রেশ লেমনেড</span>)</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৭</div>
+                    <p>কার্টে পরিমাণ বাড়ান <span class="highlight">+</span> বাটনে</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৮</div>
+                    <p>নিচে <span class="highlight">সাবটোটাল, ভ্যাট, মোট</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৯</div>
+                    <p><span class="highlight">"অর্ডার দিন"</span> বাটন ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">১০</div>
+                    <p>পেমেন্ট মডাল দেখান — <span class="highlight">নগদ</span> সিলেক্ট করুন</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "এখন আসি সবচেয়ে গুরুত্বপূর্ণ অংশে — POS অর্ডার সিস্টেম। এই স্ক্রিনটি দুটি ভাগে বিভক্ত। বাম পাশে মেনু আইটেম, ডান পাশে কার্ট।
+
+                    প্রথমে অর্ডারের ধরন বেছে নিই — ডাইন ইন। তারপর টেবিল বেছে নিই — টেবিল ২।
+
+                    এখন বার্গার ক্যাটাগরি থেকে চিকেন বার্গার ক্লিক করলে সঙ্গে সঙ্গে কার্টে যোগ হয়ে যায়। দেখুন একটু অ্যানিমেশনও আছে।
+
+                    আরেকটি আইটেম যোগ করি — পানীয় থেকে ফ্রেশ লেমনেড।
+
+                    কার্টে প্লাস বাটনে ক্লিক করে পরিমাণ বাড়াতে পারবেন, মাইনাসে কমাতে পারবেন।
+
+                    নিচে দেখুন সাবটোটাল, ৫% ভ্যাট যোগ করে মোট হিসাব স্বয়ংক্রিয়ভাবে হয়ে যাচ্ছে।
+
+                    এখন 'অর্ডার দিন' বাটনে ক্লিক করি। পেমেন্ট মডাল খুলেছে।"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>গুরুত্বপূর্ণ:</strong> এই দৃশ্যটি সবচেয়ে ধীরে দেখান। প্রতিটি ক্লিকের পরে ১-২ সেকেন্ড থামুন। দর্শকরা ফলো করতে পারবেন।
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: পেমেন্ট মডাল → কিচেন পেজ (নতুন ট্যাব)</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 7 ===== -->
+<div class="scene-card" id="scene7">
+    <div class="scene-header">
+        <div class="scene-number">৭</div>
+        <div>
+            <h5 class="scene-title">কিচেন ডিসপ্লে সিস্টেম</h5>
+            <small class="text-muted">URL: /kitchen</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>১ মিনিট ৩০ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>কিচেন পেজের ডার্ক থিম দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p><span class="highlight">হলুদ কার্ড</span> — নতুন অর্ডার দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p><span class="highlight">টাইমার</span> — অর্ডার আসার পর থেকে সময় গণনা দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>"নিশ্চিত করুন" বাটন ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>কার্ড <span class="highlight">নীল</span> হয়ে যাবে</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p>"রান্না শুরু" ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৭</div>
+                    <p>কার্ড <span class="highlight">সবুজ</span> হয়ে যাবে</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৮</div>
+                    <p>"প্রস্তুত!" বাটন দেখান</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "এটি হলো কিচেন ডিসপ্লে সিস্টেম বা KDS। এই পেজটি সাধারণত কিচেনে আলাদা একটি মনিটরে চালু রাখা হয়।
+
+                    দেখুন, হলুদ কার্ডে নতুন অর্ডার দেখা যাচ্ছে। উপরে রয়েছে টাইমার — অর্ডার কত মিনিট আগে এসেছে সেটা দেখা যাচ্ছে।
+
+                    শেফ 'নিশ্চিত করুন' বাটন চাপলে কার্ড নীল হয়ে যায়। রান্না শুরু হলে 'রান্না শুরু' বাটন চাপলে সবুজ হয়।
+
+                    খাবার প্রস্তুত হলে 'প্রস্তুত!' চাপলে ওয়েটারকে জানিয়ে দেয়।
+
+                    এই পেজ প্রতি মিনিটে স্বয়ংক্রিয়ভাবে রিফ্রেশ হয়, তাই সবসময় আপডেট থাকে।"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>টিপস:</strong> আগে POS থেকে একটি অর্ডার তৈরি করুন, তারপর কিচেন পেজ দেখান। তাহলে লাইভ ডেমো দেখা যাবে।
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে অর্ডার তালিকা</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 8 ===== -->
+<div class="scene-card" id="scene8">
+    <div class="scene-header">
+        <div class="scene-number">৮</div>
+        <div>
+            <h5 class="scene-title">বিলিং ও পেমেন্ট</h5>
+            <small class="text-muted">URL: /billing/{order} & /payment/{order}/receipt</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>২ মিনিট</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>অর্ডার তালিকা (<code>/orders</code>) দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>একটি অর্ডারের <span class="highlight">বিল আইকন</span> ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>ইনভয়েস পেজ — সব আইটেম ও হিসাব দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p><span class="highlight">নগদ</span> পেমেন্ট অপশন সিলেক্ট করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>প্রদত্ত টাকার পরিমাণ লিখুন (<span class="highlight">৫০০</span>)</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p><span class="highlight">ফেরতের টাকা</span> স্বয়ংক্রিয় দেখাবে</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৭</div>
+                    <p>"পেমেন্ট নিশ্চিত করুন" বাটন ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৮</div>
+                    <p><span class="highlight">রিসিট পেজ</span> দেখান, প্রিন্ট বাটন দেখান</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "এবার দেখি কীভাবে বিল করতে হয়। অর্ডার তালিকা থেকে যে অর্ডারটির বিল করতে চাই, সেটির পাশের বিল আইকনে ক্লিক করি।
+
+                    ইনভয়েস পেজে দেখুন — সব আইটেম, দাম, সাবটোটাল, ৫% ভ্যাট এবং মোট হিসাব স্বয়ংক্রিয়ভাবে দেখাচ্ছে।
+
+                    পেমেন্ট পদ্ধতি বেছে নিই — নগদ। প্রদত্ত টাকার পরিমাণ লিখি ৫০০ টাকা। দেখুন ফেরতের টাকার পরিমাণ স্বয়ংক্রিয় দেখাচ্ছে।
+
+                    এছাড়া বিকাশ বা কার্ডেও পেমেন্ট নেওয়া যায়।
+
+                    'পেমেন্ট নিশ্চিত করুন' ক্লিক করলে রিসিট চলে আসে। এখান থেকে প্রিন্ট করা যাবে।"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>টিপস:</strong> রিসিটটি প্রিন্ট বাটন চাপুন, প্রিন্ট প্রিভিউ দেখান — থার্মাল প্রিন্টারের মতো দেখায়।
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে "রিপোর্ট"</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 9 ===== -->
+<div class="scene-card" id="scene9">
+    <div class="scene-header">
+        <div class="scene-number">৯</div>
+        <div>
+            <h5 class="scene-title">বিক্রির রিপোর্ট</h5>
+            <small class="text-muted">URL: /reports</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>১ মিনিট ৩০ সেকেন্ড</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>রিপোর্ট পেজের উপরের <span class="highlight">৪টি স্ট্যাটাস কার্ড</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p><span class="highlight">তারিখ ফিল্টার</span> দিয়ে "এই মাস" বাটন ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>দৈনিক বিক্রির <span class="highlight">লাইন গ্রাফ</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>পেমেন্ট পদ্ধতির <span class="highlight">পাই চার্ট</span> দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p><span class="highlight">সেরা আইটেমের তালিকা</span> দেখান (মেডেল আইকন সহ)</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "রিপোর্ট পেজে একনজরে দেখা যাচ্ছে মোট বিক্রি, অর্ডার সংখ্যা এবং গড় অর্ডার মূল্য।
+
+                    তারিখ ফিল্টার দিয়ে যেকোনো সময়ের রিপোর্ট দেখা যাবে। আজ, এই সপ্তাহ বা এই মাসের জন্য দ্রুত বাটন আছে।
+
+                    এই গ্রাফে প্রতিদিনের বিক্রি দেখা যাচ্ছে।
+
+                    পাই চার্টে দেখুন কতটা বিক্রি নগদে, কতটা বিকাশে বা কার্ডে হয়েছে।
+
+                    এই তালিকায় দেখা যাচ্ছে কোন আইটেম সবচেয়ে বেশি বিক্রি হয়েছে।"
+                </div>
+            </div>
+        </div>
+        <div class="transition-badge"><i class="fas fa-arrow-right"></i> ট্রানজিশন: সাইডবার থেকে "সেটিং"</div>
+    </div>
+</div>
+
+<!-- ===== SCENE 10 ===== -->
+<div class="scene-card" id="scene10">
+    <div class="scene-header">
+        <div class="scene-number">১০</div>
+        <div>
+            <h5 class="scene-title">সেটিং ও আউট্রো</h5>
+            <small class="text-muted">URL: /settings</small>
+        </div>
+        <div class="scene-meta">
+            <span class="duration-badge"><i class="fas fa-clock me-1"></i>২ মিনিট</span>
+        </div>
+    </div>
+    <div class="scene-body">
+        <div class="split-view">
+            <div class="screen-box">
+                <div class="label"><i class="fas fa-desktop"></i> স্ক্রিনে কী দেখাবেন</div>
+                <div class="screen-step">
+                    <div class="step-num">১</div>
+                    <p>সেটিং পেজ দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">২</div>
+                    <p>রেস্টুরেন্টের নাম পরিবর্তন করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৩</div>
+                    <p>ভ্যাটের হার দেখান (৫%)</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৪</div>
+                    <p>রিসিটের ফুটার মেসেজ দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৫</div>
+                    <p>"সেটিং সংরক্ষণ" বাটন ক্লিক করুন</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৬</div>
+                    <p>স্টাফ তালিকা দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৭</div>
+                    <p>"নতুন স্টাফ" মডাল দেখান</p>
+                </div>
+                <div class="screen-step">
+                    <div class="step-num">৮</div>
+                    <p><span class="highlight">আউট্রো কার্ড:</span> "ধন্যবাদ" স্ক্রিন</p>
+                </div>
+            </div>
+            <div class="narration-box">
+                <div class="label"><i class="fas fa-microphone"></i> বর্ণনা</div>
+                <div class="narration-text">
+                    "সবশেষে আসি সেটিং পেজে। এটি শুধু এডমিন দেখতে পারবেন।
+
+                    এখানে রেস্টুরেন্টের নাম, ঠিকানা, ফোন নম্বর সেট করা যায়। ভ্যাটের হার পরিবর্তন করা যায়। রিসিটে কী লেখা থাকবে সেটাও এখান থেকে ঠিক করা যায়।
+
+                    ডানে রয়েছে স্টাফ ম্যানেজমেন্ট। এখানে নতুন স্টাফ যোগ করা যায়, ভূমিকা পরিবর্তন করা যায়, পাসওয়ার্ড রিসেট করা যায়।
+
+                    ---
+
+                    তো এটাই ছিল POS Restaurant Management System-এর সম্পূর্ণ পরিচিতি।
+
+                    সফটওয়্যারটি সম্পূর্ণ অফলাইনে কাজ করে, বাংলা ভাষায়, এবং যেকোনো ডিভাইসে ব্যবহার করা যায়।
+
+                    ভিডিওটি ভালো লাগলে লাইক দিন এবং কোনো প্রশ্ন থাকলে কমেন্টে জানান। আবার দেখা হবে, আল্লাহ হাফেজ!"
+                </div>
+            </div>
+        </div>
+        <div class="scene-notes">
+            <i class="fas fa-lightbulb"></i>
+            <strong>আউট্রোতে দেখান:</strong> URL (localhost/pos-restaurant/public), লগইন তথ্য, ডকুমেন্টেশন লিংক (/docs.html)
+        </div>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="toc-card page-break">
+    <h5 class="mb-4"><i class="fas fa-table text-primary me-2"></i>সময়ের সারসংক্ষেপ</h5>
+    <div class="table-responsive">
+        <table class="table summary-table mb-0 rounded overflow-hidden">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>দৃশ্য</th>
+                    <th>শুরু</th>
+                    <th>শেষ</th>
+                    <th>সময়</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>১</td><td>ভূমিকা ও ইন্ট্রো</td><td>০:০০</td><td>০:৪৫</td><td>৪৫ সে.</td></tr>
+                <tr><td>২</td><td>লগইন পেজ</td><td>০:৪৫</td><td>১:৩০</td><td>৪৫ সে.</td></tr>
+                <tr><td>৩</td><td>ড্যাশবোর্ড পরিচিতি</td><td>১:৩০</td><td>৩:০০</td><td>৯০ সে.</td></tr>
+                <tr><td>৪</td><td>মেনু ম্যানেজমেন্ট</td><td>৩:০০</td><td>৪:৩০</td><td>৯০ সে.</td></tr>
+                <tr><td>৫</td><td>টেবিল ম্যানেজমেন্ট</td><td>৪:৩০</td><td>৫:৩০</td><td>৬০ সে.</td></tr>
+                <tr><td>৬</td><td>POS অর্ডার নেওয়া</td><td>৫:৩০</td><td>৮:০০</td><td>১৫০ সে.</td></tr>
+                <tr><td>৭</td><td>কিচেন ডিসপ্লে</td><td>৮:০০</td><td>৯:৩০</td><td>৯০ সে.</td></tr>
+                <tr><td>৮</td><td>বিলিং ও পেমেন্ট</td><td>৯:৩০</td><td>১১:৩০</td><td>১২০ সে.</td></tr>
+                <tr><td>৯</td><td>বিক্রির রিপোর্ট</td><td>১১:৩০</td><td>১৩:০০</td><td>৯০ সে.</td></tr>
+                <tr><td>১০</td><td>সেটিং ও আউট্রো</td><td>১৩:০০</td><td>১৫:০০</td><td>১২০ সে.</td></tr>
+                <tr class="total-row"><td colspan="4"><strong>মোট সময়</strong></td><td><strong>~১৫ মিনিট</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4 g-3">
+        <div class="col-md-4">
+            <div class="p-3 rounded" style="background:#f0fff4; border-left:4px solid #2ecc71">
+                <h6 class="text-success mb-2"><i class="fas fa-tools me-2"></i>রেকর্ডিং টুলস</h6>
+                <ul class="mb-0 small">
+                    <li>OBS Studio (ফ্রি)</li>
+                    <li>Bandicam / Camtasia</li>
+                    <li>Loom (সহজ, অনলাইন)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 rounded" style="background:#fff3ee; border-left:4px solid #FF6B35">
+                <h6 class="text-warning mb-2"><i class="fas fa-video me-2"></i>এডিটিং টিপস</h6>
+                <ul class="mb-0 small">
+                    <li>দ্রুত ক্লিক স্লো করুন</li>
+                    <li>জুম ইন করে গুরুত্বপূর্ণ অংশ দেখান</li>
+                    <li>সাবটাইটেল দিন</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 rounded" style="background:#f0f8ff; border-left:4px solid #3498db">
+                <h6 class="text-primary mb-2"><i class="fas fa-upload me-2"></i>আপলোড সেটিং</h6>
+                <ul class="mb-0 small">
+                    <li>রেজোলিউশন: 1920×1080</li>
+                    <li>ফ্রেম রেট: 30fps</li>
+                    <li>ফরম্যাট: MP4 (H.264)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Print Button -->
+<button class="print-btn no-print" onclick="window.print()">
+    <i class="fas fa-print me-2"></i>প্রিন্ট করুন
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
